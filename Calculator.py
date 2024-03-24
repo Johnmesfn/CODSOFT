@@ -9,86 +9,97 @@ def display():
 
 # The addition operator works when the user enter a number but as soon as the user enters '='
 # The addition operation halts and displays the result
+# Function to add numbers
 def addition():
-    sum = 0
-    print("This addition works like a calculator when the user enters '=' sign it gives results but")
-    try:
-        number_1 = input('Enter a number: ')
-        counter = 0
-        while number_1.isnumeric():
-            sum = sum + float(number_1)
-            counter = counter + 1
+    sum = 0  # Initialize sum
+    counter = 0  # Initialize counter
+    # Get numbers and add them until 2 numbers are entered
+    while counter < 2:
+        try:
             number_1 = input('Enter a number: ')
-        while counter < 2:
-            print('To operate this operation you need at least two numbers ')
-            number_1 = input('Enter a number: ')
-            while number_1.isnumeric():
-                sum = sum + float(number_1)
-                counter = counter + 1
-                number_1 = input('Enter a number: ')
-    except Exception as e:
-        print(e)
-    return sum
+            if not number_1.isnumeric():  # Check if input is non-numeric
+                print('Please enter a valid number')
+                continue
+            sum = sum + float(number_1)  # Add number to sum
+            counter = counter + 1  # Increment counter
+        except Exception as e:  # Catch exceptions
+            print(e)  # Print exception message
+    return sum  # Return sum
 
 
-def subtraction(): # 12 3 4 98
-    difference = 0
+# Function to subtract numbers
+def subtraction():
+    difference = 0  # Initialize difference
     print("This subtraction works like a calculator when the user enters '=' sign it gives results but")
     try:
         number_1 = input('Enter a number: ')
-        counter = 0
-        if number_1.isnumeric():
+        counter = 0  # Initialize counter
+        if number_1.isnumeric():  # Check if input is numeric
             difference = float(number_1)
             number_1 = input('Enter a number: ')
-            counter = counter + 1
-            while number_1.isnumeric():
+            counter = counter + 1  # Increment counter
+            while number_1.isnumeric():  # Loop until non-numeric input
                 difference = difference - float(number_1)
                 number_1 = input('Enter a number: ')
-                counter = counter + 1
-        while counter < 2:
-            print('To operate this operation you need at least two numbers ')
-            number_1 = input('Enter a number: ')
-            if number_1.isnumeric():
-                difference = number_1
-                number_1 = input('Enter a number: ')
-                while number_1.isnumeric():
-                    difference = difference - float(number_1)
-                    number_1 = input('Enter a number: ')
-    except Exception as e:
-        print(e)
-    return difference
+    except Exception as e:  # Catch exceptions
+        print(e)  # Print exception message
+    return difference  # Return difference
 
 
+# This function calculates the product of multiple numbers.
+# It takes an arbitrary number of numbers as input and returns the product.
 def multiplication():
-    product = 1
+    product = 1  # Initialize the product to 1
     print("This Multiplication works like a calculator when the user enters '=' sign it gives results but")
     try:
-        number_1 = input('Enter a number: ')
-        counter = 0
+        number_1 = input('Enter a number: ')  # Request user input for the first number
+        counter = 0  # Initialize the counter to 0
+
+        # Validate and process the input until a non-numeric value is entered
         while number_1.isnumeric():
-            product = product * float(number_1)
-            counter = counter + 1
-            number_1 = input('Enter a number: ')
+            product *= float(number_1)  # Multiply the product by the input number
+            counter += 1  # Increment the counter
+            number_1 = input('Enter a number: ')  # Request user input for the next number
+
+        # Ensure that at least two numbers are entered
         while counter < 2:
-            print('To operate this operation you need at least two numbers ')
-            number_1 = input('Enter a number: ')
+            print('To operate this operation you need at least two numbers ')  # Inform the user about the requirement
+            number_1 = input('Enter a number: ')  # Request user input for the next number
+
+            # Validate and process the input until a non-numeric value is entered
             while number_1.isnumeric():
-                product = product * float(number_1)
-                counter = counter + 1
-                number_1 = input('Enter a number: ')
+                product *= float(number_1)  # Multiply the product by the input number
+                counter += 1  # Increment the counter
+                number_1 = input('Enter a number: ')  # Request user input for the next number
     except Exception as e:
-        print(e)
-    return product
+        print(e)  # Print exception message
+    else:
+        return product  # Return the product
 
 
+# This function performs division of two numbers
 def division():
+    # Initialize the quotient to 0
     quotient = 0
-    try:
+    # Get the dividend from user input and convert it to a float
+            number_1 = float(input('Enter the dividend: '))
+            # Get the divisor from user input and convert it to a float
+            number_2 = float(input('Enter the divisor: ')
+            # Perform division of number_1 by number_2
+            quotient = number_1 / number_2
+            # Capture any exceptions that occur during the execution of the code
+    try:  
+    # Get the dividend from user input and convert it to a float , then check if it's zero
         number_1 = float(input('Enter the dividend: '))
-        number_2 = float(input('Enter the divisor: '))
+        # Get the divisor from user input and convert it to a float
+        number_2 = float(input('Enter the divisor: ')
+        # Perform division of number_1 by number_2
         quotient = number_1 / number_2
+        # Capture any exceptions that occur during the execution of the code
     except Exception as e:
+        # Print the exception message
         print(e)
+    # Return the quotient
     return quotient
 
 
