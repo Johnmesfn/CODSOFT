@@ -1,6 +1,4 @@
 import random
-
-
 def password_generator(length):
     while length <= 0:
         print('Password length must be greater than 0. ')
