@@ -22,15 +22,17 @@ def password_generator(length):
 
 def length_input():
     print('********** Welcome to terminal based password generator **********')
-    length = int(input('Please enter the desired length '))
-    while length.isdigit() != 'False':
+    length = input('Please enter the desired length ').strip()
+    while not length.isnumeric():
         print('Sorry password length must be a number')
-        length = int(input('Please enter the desired length '))
+        length = input('Please enter the desired length ').strip()
     while length <= 0:
         print('Sorry password length must be greater than zero')
-        length = int(input('Please enter the desired length '))
-    return length
-
+        length = input('Please enter the desired length ').strip()
+    try:
+        return int(length)
+    except Exception as e:
+        print(f'Error: {e}')
 
 def main():
     length = length_input()
@@ -38,7 +40,7 @@ def main():
     if length <= 8:
         print('We consider your password is Weak based on its length we recommend a length greater than 8')
         print(f'The generated password is: {generated_password}')
-        choice = input('Press 1 to generate again press any key to terminate: ')
+        choice = input('Press 1 to generate again press any key to terminate: ').strip()
         if choice == '1':
             main()
         else:
@@ -47,13 +49,11 @@ def main():
     else:
         print('We consider your password is Strong')
         print(f'The generated password is: {generated_password}')
-        choice = input('Press 1 to generate again press any key to terminate: ')
+        choice = input('Press 1 to generate again press any key to terminate: ').strip()
         if choice == '1':
             main()
         else:
             print('Thank you for using the service')
             exit()
-
-
 if __name__ == "__main__":
     main()
