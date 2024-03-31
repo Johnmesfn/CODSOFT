@@ -2,150 +2,183 @@ def display():
     print('********Welcome to terminal based Calculator********')
     print('This calculator performs some basic arithmetic functions listed below')
     print('Please press + for Addition \t     Please press - for Subtraction')
-    print('Please press * for Multiplication \t Please press / for division')
-    print('Please press ^ for exponentiation \t Please press % for modulo')
+    print('Please press * for Multiplication \t Please press / for Long Division')
+    print('Please press ^ for Exponentiation \n')
     print('               Please press any key to terminate ')
-
-
-# The addition operator works when the user enter a number but as soon as the user enters '='
+# The addition operator works initialy asking the quantities of numbers they want to add.
+# And asks them to enter the numbers  
 # The addition operation halts and displays the result
 # Function to add numbers
 def addition():
     sum = 0  # Initialize sum
-    counter = 0  # Initialize counter
-    # Get numbers and add them until 2 numbers are entered
-    while counter < 2:
-        try:
-            number_1 = input('Enter a number: ')
-            if not number_1.isnumeric():  # Check if input is non-numeric
-                print('Please enter a valid number')
-                continue
-            sum = sum + float(number_1)  # Add number to sum
-            counter = counter + 1  # Increment counter
-        except Exception as e:  # Catch exceptions
-            print(e)  # Print exception message
-    return sum  # Return sum
-
+    print ('How many number would like to add: ') # Ask user how many numbers they want to add
+    number_of_numbers = input() # Get input from user
+    while not number_of_numbers.isnumeric():
+        print('Please enter a valid number')  # Print error message
+        number_of_numbers = input()  # Get new input from user
+    number_of_numbers = int(number_of_numbers) # Convert input to integer
+    for i in range(number_of_numbers):  # Loop for number of numbers
+        number = input('Enter a number: ')  # Get input from user
+        while not number.isnumeric():  # Check if input is numeric
+            print('Please enter a valid number')  # Print error message
+            number = input('Enter a number: ')  # Get new input from user
+        print('Is number positive? Y for Yes or N for No')  # Ask user if number is Positive 
+        sign = input()  # Get input from user
+        while sign.upper() != 'Y' and sign.upper() != 'N':  # Check if user's choice is valid
+            print('Invalid choice selected.')  # Print error message
+            print('Is number positive? Y for Yes or N for No')  # Ask user if number is Positive
+            sign = input()  # Get input from user again
+        if sign.upper() == 'Y':  # Check if user's choice is positive
+            number = float(number)  # Convert input to float
+        elif sign.upper() == 'N':  # Check if user's choice is negative
+            number = -1 * float(number)  # Make the number negative
+        sum = sum + float(number)  # Add number to sum
+    return sum  # Return sum so it can be used in other operations
 
 # Function to subtract numbers
 def subtraction():
     difference = 0  # Initialize difference
-    print("This subtraction works like a calculator when the user enters '=' sign it gives results but")
-    try:
-        number_1 = input('Enter a number: ')
-        counter = 0  # Initialize counter
-        if number_1.isnumeric():  # Check if input is numeric
-            difference = float(number_1)
-            number_1 = input('Enter a number: ')
-            counter = counter + 1  # Increment counter
-            while number_1.isnumeric():  # Loop until non-numeric input
-                difference = difference - float(number_1)
-                number_1 = input('Enter a number: ')
-    except Exception as e:  # Catch exceptions
-        print(e)  # Print exception message
-    return difference  # Return difference
-
+    number = input('Enter a number: ')  # Get input from user
+    while number != '=':  # Loop until = sign is entered
+        if number.isnumeric():  # Check if input is numeric
+            if float(number ) > float(difference) : # If the next number is smaller than current number, then we are doing subtraction
+                difference = float(number) - difference  # Subtract number from difference
+            else:
+                difference = difference - float(number)  # Subtract number from difference
+        else:
+            print('Please enter a valid number')  # Print error message
+        number = input('Enter a number: ')  # Get new input from user
+    return difference  # Return sum so it can be used in other operations
 
 # This function calculates the product of multiple numbers.
 # It takes an arbitrary number of numbers as input and returns the product.
 def multiplication():
-    product = 1  # Initialize the product to 1
-    print("This Multiplication works like a calculator when the user enters '=' sign it gives results but")
-    try:
-        number_1 = input('Enter a number: ')  # Request user input for the first number
-        counter = 0  # Initialize the counter to 0
+    product = 1  # Initialize difference
+    number_of_numbers = input('How many number would like to multiply: ')  # Ask user how many numbers they want to multiply
+    while not number_of_numbers.isnumeric():  # Check if input is numeric
+        print("Number of arguments expected, please enter a valid number")  # Print error message
+        number_of_numbers = input()  # Get new input from user
+    number_of_numbers = int(number_of_numbers)  # Convert input to integer
+    for i in range(number_of_numbers):  # Loop for number of numbers
+        number = input('Enter a number: ')  # Get input from user
+        while not number.isnumeric():  # Check if input is numeric
+            print('Please enter a valid number')  # Print error message
+            number = input('Enter a number: ')  # Get new input from user
+        print('Is number positive? Y for Yes or N for No')  # Ask user if number is Positive 
+        sign = input()  # Get input from user
+        while sign.upper() != 'Y' and sign.upper() != 'N':  # Check if user's choice is valid
+            print('Invalid choice selected.')  # Print error message
+            print('Is number positive? Y for Yes or N for No')  # Ask user if number is Positive
+            sign = input()  # Get input from user again
+        if sign.upper() == 'Y':  # Check if user's choice is positive
+            number = float(number)  # Convert input to float
+        elif sign.upper() == 'N':  # Check if user's choice is negative
+            number = -1 * float(number)  # Make the number negative
+        product = product * float(number)  # Multiply number with product
+    return product  # Return product so it can be used in other operations
 
-        # Validate and process the input until a non-numeric value is entered
-        while number_1.isnumeric():
-            product *= float(number_1)  # Multiply the product by the input number
-            counter += 1  # Increment the counter
-            number_1 = input('Enter a number: ')  # Request user input for the next number
+# This function performs long division by calculating the  quotient and remainder.
+# The division is performed using Euclidean algorithm.
+# It takes two numbers, dividend and divisor, and returns the quotient and remainder.
+def division_long(dividend, divisor):
+    quotient = 0 # Initialize quotient to zero
+    remainder = dividend # Initialize remainder to dividend
+    while remainder >= divisor: # Loop until remainder is less than divisor
+        remainder -= divisor # Subtract divisor from remainder
+        quotient += 1 # Add one to quotient
+    return quotient, remainder # Return quotient and remainder
 
-        # Ensure that at least two numbers are entered
-        while counter < 2:
-            print('To operate this operation you need at least two numbers ')  # Inform the user about the requirement
-            number_1 = input('Enter a number: ')  # Request user input for the next number
-
-            # Validate and process the input until a non-numeric value is entered
-            while number_1.isnumeric():
-                product *= float(number_1)  # Multiply the product by the input number
-                counter += 1  # Increment the counter
-                number_1 = input('Enter a number: ')  # Request user input for the next number
-    except Exception as e:
-        print(e)  # Print exception message
-    else:
-        return product  # Return the product
-
-
-# This function performs division of two numbers
+# Main program that handles user inputs for division operation.
 def division():
-    # Initialize the quotient to 0
-    quotient = 0
-    # Get the dividend from user input and convert it to a float
-            number_1 = float(input('Enter the dividend: '))
-            # Get the divisor from user input and convert it to a float
-            number_2 = float(input('Enter the divisor: ')
-            # Perform division of number_1 by number_2
-            quotient = number_1 / number_2
-            # Capture any exceptions that occur during the execution of the code
-    try:  
-    # Get the dividend from user input and convert it to a float , then check if it's zero
-        number_1 = float(input('Enter the dividend: '))
-        # Get the divisor from user input and convert it to a float
-        number_2 = float(input('Enter the divisor: ')
-        # Perform division of number_1 by number_2
-        quotient = number_1 / number_2
-        # Capture any exceptions that occur during the execution of the code
-    except Exception as e:
-        # Print the exception message
-        print(e)
-    # Return the quotient
-    return quotient
-
-
-def exponentiation():
-    exponentiation = 0
-    try:
-        number_1 = float(input('Enter the base: '))
-        number_2 = float(input('Enter the exponent: '))
-        exponentiation = number_1 ** number_2
-    except Exception as e:
-        print(e)
-    return exponentiation
-
-
-def modulo():
-    remainder = 0
-    try:
-        number_1 = float(input('Enter the dividend: '))
-        number_2 = float(input('Enter the divisor: '))
-        remainder = number_1 % number_2
-    except Exception as e:
-        print(e)
-    return remainder
-
+    quotient = 0 # Initialize quotient to zero
+    remainder = 0 # Initialize remainder to zero
+    dividend = input('Enter the dividend: ') # Get dividend from user input
+    while not dividend.isnumeric(): # Check if input is numeric
+        print('Please enter a valid number') # Print error message
+        dividend = input('Enter the dividend: ') # Get new input from user
+    dividend = float(dividend) # Convert input to float
+    divisor = input('Enter the divisor: ') # Get divisor from user input
+    while not divisor.isnumeric() and divisor == '0': # Check if input is numeric and divisor is zero
+        if divisor == '0': # Check if divisor is zero
+            print("Error! Division by zero is not possible") # Print error message
+        else: # If input is not numeric
+            print('Please enter a valid number') # Print error message
+        divisor = input('Enter the divisor: ') # Get new input from user
+    try: # Try to convert input to float and perform division
+        divisor = float(divisor) # Convert input to float
+        quotient, remainder = division_long(dividend, divisor) # Calculate quotient and remainder
+    except Exception as e: # Catch errors caused by non-numeric input
+        print(f'Error! {e}') # Print error message
+    return quotient, remainder # Return quotient and remainder
+def power():
+    exponentiation = 0 # Initialize exponentiation to zero
+    base = input("Enter the base: ") # Get base from user input
+    while not base .isnumeric(): # Check if input is numeric
+        print('Please enter a valid base') # Print error message
+        base = input("Enter the base: ") # Get new input from user
+    print('Is the base Positive? Y for Yes or N for No') # Ask user if base is negative
+    choice = input()     # Get user's choice
+    while choice.upper() != 'Y' and choice.upper() != 'N':  # Check if user's choice is valid
+        print('Invalid choice selected.') # Print error message
+        print('Is the base Positive? Y for Yes or N for No') # Ask user if base is negative
+        choice = input() # Get user's choice
+    if choice.upper() == 'Y': # Check if user's choice is positive
+        power = input("Enter the exponent: ") # Get exponent from user input
+        while not power.isnumeric(): # Check if input is numeric
+            print('Please enter a valid exponent')  # Print error message
+            power = input("Enter the exponent: ") # Get new input from user
+        print('Is the exponet Positive? Y for Yes or N for No') # Ask user if base is negative
+        choice = input()     # Get user's choice
+        while choice.upper() != 'Y' and choice.upper() != 'N':  # Check if user's choice is valid
+            print('Invalid choice selected.') # Print error message
+            print('Is the exponet Positive? Y for Yes or N for No') # Ask user if base is negative
+            choice = input() # Get user's choice
+        if choice.upper() == 'Y': # Check if user's choice is positive
+            exponentiation = int(base) ** int(power) # Calculate exponentiation
+        elif choice.lower() == "n": # Check if user's choice is negative
+            power = -1 * int(power) # Making the power negativ
+            exponentiation = pow(int(base), int(power)) # Calculate exponentiation with negative power 
+    else: # Base is negative 
+        base = -1 * int(base) # Making the base negative
+        power = input("Enter the exponent: ") # Get exponent from user input
+        while not power.isnumeric(): # Check if input is numeric
+            print('Please enter a valid exponent')  # Print error message
+            power = input("Enter the exponent: ") # Get new input from user
+        print('Is the exponet Positive? Y for Yes or N for No') # Ask user if exponent is Positive
+        choice = input()     # Get user's choice
+        while choice.upper() != 'Y' and choice.upper() != 'N':  # Check if user's choice is valid
+            print('Invalid choice selected.') # Print error message
+            print('Is the exponet Positive? Y for Yes or N for No') # Ask user if base is negative
+            choice = input() # Get user's choice
+        if choice.upper() == 'Y': # Check if user's choice is positive
+            exponentiation = int(base) ** int(power) # Calculate exponentiation
+        elif choice.lower() == "n": # Check if user's choice is negative, then take absolute value of both base and exponent without taking into account that base is negative
+            power = -1 * int(power) # Making the power negative
+            exponentiation = pow(int(base), int(power)) # Calculate exponentiation with negative power 
+    return exponentiation # Return result of exponentiation
 
 def main():
     display()
     choice = input(' ')
     while choice == '+' or choice == '-' or choice == '*' or choice == '/' or choice == '^' or choice == '%':
         if choice == '+':
-            print('Your sum is: ', addition())
+            sum = addition()
+            print(f'Your sum is: {sum}')
             main()
         elif choice == '-':
-            print('Your difference is: ', subtraction())
+            difference = subtraction()
+            print(f'Your difference is: {difference}')
             main()
         elif choice == '*':
             print('Your product is: ', multiplication())
             main()
         elif choice == '/':
-            print('Your quotient is: ', division())
+            quotient , remainder = division()
+            print(f'Your quotient is: {quotient} and your remainder is: {remainder}')
             main()
         elif choice == '^':
-            print('Your exponential is: ', exponentiation())
-            main()
-        elif choice == '%':
-            print('Your remainder is: ', modulo())
+            exponentiation = power()
+            print(f'Your exponential is: {exponentiation}')
             main()
     print('Are you sure to terminate the program? Y for Yes or N for No')
     choice = input()
