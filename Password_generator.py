@@ -1,6 +1,5 @@
 import random
 def password_generator(length):
-    print('********** Welcome to terminal based password generator **********')
     print('Please Select from the list of menus below') 
     print('Press 1 for aLpahbeT password')
     print('Press 2 for Numerical password')
@@ -11,11 +10,11 @@ def password_generator(length):
     while password_desire != '1' and password_desire != '2' and password_desire != '3' and password_desire != '4' and password_desire != '5':
         print('Please enter a valid input')
         print('Please Select from the list of menus below') 
-        print('Press 1 for aLpahbeT password')
-        print('Press 2 for Numerical password')
-        print('Press 3 for Special character password')
-        print('Press 4 for alphanumerical password')
-        print('Press 5 for alphanumerical and special character password')
+        print('Press 1 for aLpahbeT password \t')
+        print('Press 2 for Numerical password \t')
+        print('Press 3 for Special character password \t')
+        print('Press 4 for alphanumerical password \t')
+        print('Press 5 for alphanumerical and special character password \t')
         password_desire = input()
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     small_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -52,7 +51,6 @@ def password_generator(length):
         return random_password 
 
 def length_input():
-    print('********** Welcome to terminal based password generator **********')
     length = input('Please enter the desired length ').strip()
     while not length.isnumeric():
         print('Sorry password length must be a number')
@@ -63,6 +61,7 @@ def length_input():
     return int(length)
 
 def main():
+    print('********** Welcome to terminal based password generator **********')
     length = length_input()
     generated_password = password_generator(length)
     if length <= 8:
