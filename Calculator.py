@@ -38,17 +38,30 @@ def addition():
 # Function to subtract numbers
 def subtraction():
     difference = 0  # Initialize difference
-    number = input('Enter a number: ')  # Get input from user
-    while number != '=':  # Loop until = sign is entered
-        if number.isnumeric():  # Check if input is numeric
-            if float(number ) > float(difference) : # If the next number is smaller than current number, then we are doing subtraction
-                difference = float(number) - difference  # Subtract number from difference
-            else:
-                difference = difference - float(number)  # Subtract number from difference
-        else:
-            print('Please enter a valid number')  # Print error message
-        number = input('Enter a number: ')  # Get new input from user
-    return difference  # Return sum so it can be used in other operations
+    number = [] 
+    number_of_numbers = input('How many number would like to subtract: ')  # Ask user how many numbers they want to multiply
+    while not number_of_numbers.isnumeric():  # Check if input is numeric
+        print("Number of arguments expected, please enter a valid number")  # Print error message
+        number_of_numbers = input()  # Get new input from user
+    number_of_numbers = int(number_of_numbers)  # Convert input to integer
+    for i in range(number_of_numbers):  # Loop for number of numbers
+        num = input("Enter a number: ")  # Get input from user
+        while not num.isnumeric():  # Check if input is numeric
+            print("Please enter a valid number")  # Print error message
+            num = input("Enter a number: ")  # Get new input from user
+        print("Is number positive? Y for Yes or N for No")  # Ask user if number is Positive
+        sign = input()  # Get input from user
+        while sign.upper() != 'Y' and sign.upper() != 'N':  # Check if user's choice is valid
+            print("Invalid choice selected.")  # Print error message
+            print("Is number positive? Y for Yes or N for No")  # Ask user if number is Positive
+            sign = input()  # Get input from user again
+        if sign.upper() == 'Y':  # Check if user's choice is positive
+            num = float(num)  # Convert input to float
+        elif sign.upper() == 'N':  # Check if user's choice is negative
+            num = -1 * float(num)  # Make the number negative
+        number.append(float(num))  # Add number to list
+    difference = number[0] - sum(number[1:])  # Subtract numbers from list starting with first element
+    return difference  # Return difference so it can be used in other operations
 
 # This function calculates the product of multiple numbers.
 # It takes an arbitrary number of numbers as input and returns the product.
@@ -83,7 +96,7 @@ def multiplication():
 def division_long(dividend, divisor):
     quotient = 0 # Initialize quotient to zero
     remainder = dividend # Initialize remainder to dividend
-    while remainder >= divisor: # Loop until remainder is less than divisor
+    while float(remainder) >= float(divisor): # Loop until remainder is less than divisor
         remainder -= divisor # Subtract divisor from remainder
         quotient += 1 # Add one to quotient
     return quotient, remainder # Return quotient and remainder
@@ -98,14 +111,17 @@ def division():
         dividend = input('Enter the dividend: ') # Get new input from user
     dividend = float(dividend) # Convert input to float
     divisor = input('Enter the divisor: ') # Get divisor from user input
-    while not divisor.isnumeric() and divisor == '0': # Check if input is numeric and divisor is zero
-        if divisor == '0': # Check if divisor is zero
-            print("Error! Division by zero is not possible") # Print error message
-        else: # If input is not numeric
-            print('Please enter a valid number') # Print error message
+    while not divisor.isnumeric(): # Check if input is numeric
+        print('Please enter a valid number') # Print error message
         divisor = input('Enter the divisor: ') # Get new input from user
+    while divisor == '0': # Check if input is numeric and divisor is zero
+        print("Error! Division by zero is not possible") # Print error message
+        divisor = input('Enter the divisor: ') # Get new input from user 
+        while not divisor.isnumeric(): # Check if input is numeric
+            print('Please enter a valid number') # Print error message
+            divisor = input('Enter the divisor: ') # Get new input from user       
+    divisor = float(divisor) # Convert input to float
     try: # Try to convert input to float and perform division
-        divisor = float(divisor) # Convert input to float
         quotient, remainder = division_long(dividend, divisor) # Calculate quotient and remainder
     except Exception as e: # Catch errors caused by non-numeric input
         print(f'Error! {e}') # Print error message
